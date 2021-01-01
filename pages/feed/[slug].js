@@ -79,13 +79,16 @@ export const getServerSideProps = async pageContext => {
     };
   }
 
-  const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles`, {
-    method: 'POST',
-    body: JSON.stringify({ pageNumber }),
-    headers: { 'Content-Type': 'application/json' },
-  });
+  const apiResponse = await fetch(
+    `https://newsapi.org/v2/top-headlines?country=us&pageSize=5&page=${pageNumber}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_NEWS_KEY}`,
+      },
+    },
+  ).then(res => res.json());
 
-  const { articles } = await apiResponse.json();
+  const { articles } = apiResponse;
 
   return {
     props: {
