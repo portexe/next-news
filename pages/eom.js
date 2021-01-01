@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import styles from '../styles/Recognition.module.css';
+import styles from '../styles/EOM.module.css';
 import { Toolbar } from '../components/toolbar';
 
-export const Recognition = ({ employee }) => {
+export const EOM = ({ employee }) => {
   return (
     <>
       <Head>
@@ -58,4 +58,4 @@ export const getServerSideProps = async pageContext => {
   };
 };
 
-export default Recognition;
+export default EOM;

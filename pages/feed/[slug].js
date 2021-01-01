@@ -5,12 +5,10 @@ import { Toolbar } from '../../components/toolbar';
 
 export const Feed = ({ articles, pageNumber }) => {
   const router = useRouter();
-  return (
+  return articles.length ? (
     <>
       <Head>
-        {/* Occasionally the image won't exist because some articles don't have images */}
         <meta property="og:image" content={articles[0]?.urlToImage} />
-
         <meta property="og:description" content={articles[0]?.description} />
         <meta property="og:title" content={articles[0]?.title + ' and more!'} />
       </Head>
@@ -64,13 +62,20 @@ export const Feed = ({ articles, pageNumber }) => {
         </div>
       </div>
     </>
+  ) : (
+    <div className="page-container">
+      <Toolbar />
+      <div className={styles.main}>
+        <h1>Oops! No articles for this page</h1>
+      </div>
+    </div>
   );
 };
 
 export const getServerSideProps = async pageContext => {
   const pageNumber = pageContext.query.slug;
 
-  if (!pageNumber) {
+  if (!pageNumber || pageNumber < 1 || pageNumber > 5) {
     return {
       props: {
         articles: [],
