@@ -79,7 +79,7 @@ export const getServerSideProps = async pageContext => {
     };
   }
 
-  const apiResponse = await fetch('http://localhost:3000/api/articles', {
+  const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles`, {
     method: 'POST',
     body: JSON.stringify({ pageNumber }),
     headers: { 'Content-Type': 'application/json' },
